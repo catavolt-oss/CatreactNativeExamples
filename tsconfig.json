@@ -1,0 +1,14 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "es6",
+        "jsx": "react",
+        "sourceMap": false,
+        "moduleResolution": "node"
+    },
+    "files": [
+        "typings/index.d.ts",
+        "index.ts"
+    ]
+}
