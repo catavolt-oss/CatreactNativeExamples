@@ -115,7 +115,7 @@ const BuzzMessages = React.createClass({
     render: function () {
         return (React.createElement(CatavoltPane, null, React.createElement(View, {style: [styles.container, styles.main]}, React.createElement(CvAppWindow, {loginResult: this.props.loginResult}, React.createElement(View, {style: [styles.col]}, React.createElement(CvNavigation, {navigationResult: this.props.navigationResult, renderer: (cvContext) => {
             const formContext = cvContext.scopeCtx.scopeObj;
-            return (React.createElement(CvForm, null, React.createElement(View, {style: [styles.col]}, React.createElement(View, {style: [styles.row, styles.bg3]}, React.createElement(TouchableHighlight, {onPress: () => { this.props.navigator.pop(); }}, React.createElement(Text, {style: { alignSelf: 'flex-start', color: '#ffffff' }}, '< Back'))), React.createElement(View, {style: [styles.titleRow, styles.bg2]}, React.createElement(Text, {style: [styles.headerTextDark, styles.marginSm]}, formContext.formDef.label)), React.createElement(View, {style: [styles.col, styles.messagePanel]}, React.createElement(View, {style: [styles.bg1, styles.marginSm]}, React.createElement(Text, {style: [styles.marginLeftSm, styles.textLg]}, "Messages")), React.createElement(View, {style: [styles.col, styles.messageListPanel]}, React.createElement(View, {style: [styles.row, styles.hr]}), React.createElement(View, {style: [styles.rowItem, styles.newMessageRow]}, React.createElement(CvNativeResource, {resourceName: 'icon-action-join.png', style: { width: 24, height: 24 }}), React.createElement(TouchableHighlight, {onPress: () => { }}, React.createElement(Text, {style: styles.newMessageText}, "New Message"))), React.createElement(View, {style: [styles.row, styles.hr]}), React.createElement(CvListPane, {paneRef: 0, recordPageSize: 50, queryRenderer: (cvContext, callback) => {
+            return (React.createElement(CvForm, null, React.createElement(View, {style: [styles.col]}, React.createElement(View, {style: [styles.row, styles.bg3]}, React.createElement(TouchableHighlight, {onPress: () => { this.props.navigator.pop(); }}, React.createElement(Text, {style: { alignSelf: 'flex-start', color: '#ffffff' }}, '< Back'))), React.createElement(View, {style: [styles.titleRow, styles.bg2]}, React.createElement(Text, {style: [styles.headerTextDark, styles.marginSm]}, formContext.formDef.label)), React.createElement(View, {style: [styles.col, styles.messagePanel]}, React.createElement(View, {style: [styles.bg1, styles.marginSm]}, React.createElement(Text, {style: [styles.marginLeftSm, styles.textLg]}, "Messages")), React.createElement(View, {style: [styles.col, styles.messageListPanel]}, React.createElement(View, {style: [styles.row, styles.hr]}), React.createElement(View, {style: [styles.rowItem, styles.newMessageRow]}, React.createElement(TouchableHighlight, {onPress: () => { }}, React.createElement(View, {style: [styles.newMessageButton]}, React.createElement(CvNativeResource, {resourceName: 'icon-action-join.png', style: { width: 24, height: 24 }}), React.createElement(Text, {style: styles.newMessageText}, "New Message")))), React.createElement(View, {style: [styles.row, styles.hr]}), React.createElement(CvListPane, {paneRef: 0, recordPageSize: 50, queryRenderer: (cvContext, callback) => {
                 const listContext = cvContext.scopeCtx.scopeObj;
                 const dataSource = new ListView.DataSource({ rowHasChanged: function (r1, r2) { return r1 !== r2; } });
                 const records = listContext.scroller.buffer;
@@ -129,17 +129,17 @@ const BuzzMessages = React.createClass({
                     if (prop && prop.value > 0) {
                         const numAttachments = prop.value;
                         if (numAttachments == 1) {
-                            attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_1', key: '1', style: [{ flex: 1, width: 300, height: 500, overflow: 'hidden', resizeMode: 'contain' }, styles.bg1]}));
+                            attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_1', key: '1', style: [{ flex: 1, width: 300, height: 250, overflow: 'hidden' }, styles.bg1], imageResizeMode: 'contain'}));
                         }
                         else if (numAttachments % 2) {
                             for (let i = 1; i < numAttachments; i++) {
-                                attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + i, key: '' + i, style: [{ flex: 1, width: 150, height: 250, overflow: 'hidden', resizeMode: 'contain' }, styles.bg1]}));
+                                attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + i, key: '' + i, style: [{ flex: 1, width: 150, height: 250, overflow: 'hidden' }, styles.bg1], imageResizeMode: 'contain'}));
                             }
-                            attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + numAttachments, key: '' + numAttachments, style: [{ flex: 1, width: 300, height: 500, overflow: 'hidden', resizeMode: 'contain' }, styles.bg1]}));
+                            attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + numAttachments, key: '' + numAttachments, style: [{ flex: 1, width: 300, height: 500, overflow: 'hidden' }, styles.bg1], imageResizeMode: 'contain'}));
                         }
                         else {
                             for (let i = 1; i <= numAttachments; i++) {
-                                attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + i, key: '' + i, style: [{ flex: 1, width: 150, height: 250, overflow: 'hidden', resizeMode: 'contain' }, styles.bg1]}));
+                                attachments.push(React.createElement(CvNativeProp, {propName: 'attachment_preview_' + i, key: '' + i, style: [{ flex: 1, width: 150, height: 250, overflow: 'hidden' }, styles.bg1], imageResizeMode: 'contain'}));
                             }
                         }
                         return React.createElement(View, {style: [styles.row, styles.attachmentPanel]}, attachments);
@@ -182,7 +182,8 @@ export var CvNativeProp = React.createClass({
             percentageSymbol: '%',
             style: null,
             handler: null,
-            imageStyle: null
+            imageStyle: null,
+            imageResizeMode: 'stretch'
         };
     },
     render: function () {
@@ -205,7 +206,7 @@ export var CvNativeProp = React.createClass({
             return boolVal ? React.createElement(Text, null, "Yes") : React.createElement(Text, null, "No");
         }, binaryRenderer: (binaryUrl) => {
             const style = this.props.imageStyle ? this.props.imageStyle : this.props.style;
-            return binaryUrl ? React.createElement(Image, {style: style, source: { uri: binaryUrl }}) : null;
+            return binaryUrl ? React.createElement(Image, {resizeMode: this.props.imageResizeMode, style: style, source: { uri: binaryUrl }}) : null;
         }}));
     }
 });

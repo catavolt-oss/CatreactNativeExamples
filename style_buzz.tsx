@@ -95,6 +95,11 @@ export default StyleSheet.create({
         color: '#b02067',
         fontSize: 10
     },
+    newMessageButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#cccccc'   
+    },
     messageListPanel: {
         backgroundColor: '#cccccc',
         marginRight: 8,

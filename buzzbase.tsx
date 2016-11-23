@@ -261,9 +261,11 @@ const BuzzMessages = React.createClass<{navigator:any, loginResult:CvLoginResult
                                             <View style={[styles.col, styles.messageListPanel]}>
                                                 <View style={[styles.row, styles.hr]}/>
                                                 <View style={[styles.rowItem, styles.newMessageRow]}>
-                                                    <CvNativeResource resourceName={'icon-action-join.png'} style={{width:24,height:24}}/>
                                                     <TouchableHighlight onPress={()=>{}}>
-                                                        <Text style={styles.newMessageText}>New Message</Text>
+                                                        <View style={[styles.newMessageButton]}>
+                                                            <CvNativeResource resourceName={'icon-action-join.png'} style={{width:24,height:24}}/>
+                                                            <Text style={styles.newMessageText}>New Message</Text>
+                                                        </View>
                                                     </TouchableHighlight>
                                                 </View>
                                                 <View style={[styles.row, styles.hr]}/>
@@ -307,18 +309,18 @@ const BuzzMessages = React.createClass<{navigator:any, loginResult:CvLoginResult
                                                                                 const numAttachments = prop.value;
                                                                                 if(numAttachments == 1) {
                                                                                     attachments.push(<CvNativeProp propName={'attachment_preview_1'} key={'1'}
-                                                                                    style={[{flex: 1, width:300,height:500, overflow:'hidden', resizeMode:'contain'}, styles.bg1]}/>)
+                                                                                    style={[{flex: 1, width:300, height:250, overflow:'hidden'}, styles.bg1]} imageResizeMode='contain'/>)
                                                                                 } else if (numAttachments % 2){
                                                                                     for(let i = 1; i < numAttachments; i++) {
                                                                                         attachments.push(<CvNativeProp propName={'attachment_preview_' + i} key={'' + i}
-                                                                                        style={[{flex: 1, width:150,height:250, overflow:'hidden', resizeMode:'contain'}, styles.bg1]}/>)
+                                                                                        style={[{flex: 1, width:150,height:250, overflow:'hidden'}, styles.bg1]} imageResizeMode='contain'/>)
                                                                                     }
                                                                                     attachments.push(<CvNativeProp propName={'attachment_preview_' + numAttachments} key={'' + numAttachments}
-                                                                                        style={[{flex: 1, width:300,height:500, overflow:'hidden', resizeMode:'contain'}, styles.bg1]}/>)
+                                                                                        style={[{flex: 1, width:300,height:500, overflow:'hidden'}, styles.bg1]} imageResizeMode='contain'/>)
                                                                                 } else {
                                                                                     for(let i = 1; i <= numAttachments; i++) {
                                                                                         attachments.push(<CvNativeProp propName={'attachment_preview_' + i} key={'' + i}
-                                                                                        style={[{flex: 1, width:150,height:250, overflow:'hidden', resizeMode:'contain'}, styles.bg1]}/>)
+                                                                                        style={[{flex: 1, width:150,height:250, overflow:'hidden'}, styles.bg1]} imageResizeMode='contain'/>)
                                                                                     }
                                                                                 }
                                                                                 return <View style={[styles.row, styles.attachmentPanel]}>{attachments}</View>
@@ -434,9 +436,14 @@ export interface CvNativePropProps extends CvProps {
      */
     percentageSymbol?:string;
     /**
-     * The style to apply to image elements
+     * The style to apply to image properties
      */
-    imageStyle?:{}
+    imageStyle?:{},
+
+    /**
+     * Resize mode to apply to image properties
+     */
+    imageResizeMode?:string
 }
 
 export var CvNativeProp = React.createClass<CvNativePropProps, any>({
@@ -455,7 +462,8 @@ export var CvNativeProp = React.createClass<CvNativePropProps, any>({
             percentageSymbol: '%',
             style: null,
             handler: null,
-            imageStyle: null
+            imageStyle: null,
+            imageResizeMode: 'stretch'
         }
     },
 
@@ -483,7 +491,7 @@ export var CvNativeProp = React.createClass<CvNativePropProps, any>({
             }}
             binaryRenderer={(binaryUrl)=>{
                 const style = this.props.imageStyle ? this.props.imageStyle : this.props.style;
-                return binaryUrl ? <Image style={style} source={{uri: binaryUrl}}/> : null;
+                return binaryUrl ? <Image resizeMode={this.props.imageResizeMode} style={style} source={{uri: binaryUrl}}/> : null;
             }
         }/>
 
