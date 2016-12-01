@@ -10,9 +10,10 @@
     "react"
   ],
   "dependencies": {
+    "catreact": "2.0.14",
     "react": "15.3.2",
     "react-native": "0.36.0",
-    "catreact": "2.0.11"
+    "whatwg-fetch": "^1.1.1"
   },
   "devDependencies": {
     "babel-jest": "16.0.0",
